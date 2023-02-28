@@ -1,0 +1,27 @@
+nav {
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: space-evenly;
+ align-items: center;
+}
+.logo {
+ color: rgb(152, 219, 76);
+ font-family: "Silkscreen", sans-serif;
+ font-size: 35px;
+ font-weight: 400;
+}
+.navigation {
+ display: flex;
+ flex-wrap: wrap;
+}
+.navigation a {
+ padding: 8px 15px;
+ text-transform: uppercase;
+ letter-spacing: 1px;
+ text-decoration: none;
+ border-radius: 5px;
+ color:rgb(16, 206, 219);
+}
+.navigation a:hover {
+ background-color: rgb(8, 51, 45);
+}
