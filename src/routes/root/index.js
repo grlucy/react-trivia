@@ -16,7 +16,9 @@ export default function Root() {
         <NavLink style={styleNavLink} to="/scoreboard">Scoreboard</NavLink>
       </div>
      </nav>
-     <Outlet />
+     <div className='contentBox'>
+      <Outlet />
+     </div>
     </>
   )
 }

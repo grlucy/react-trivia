@@ -1,0 +1,23 @@
+.dropdownContainer {
+ margin: 20px;
+ width: 350px;
+ text-align: left;
+}
+label {
+ color: rgb(152, 219, 76);
+ font-weight: 400;
+ font-size: 25px;
+}
+select {
+ width: 100%;
+ background-color: transparent;
+ color: white;
+ font-size: 18px;
+ border: 1px solid rgb(16, 206, 219);
+ border-radius: 5px;
+ padding: 16px 16px;
+ margin-top: 5px;
+}
+option {
+ color: rgb(5, 34, 30);
+}

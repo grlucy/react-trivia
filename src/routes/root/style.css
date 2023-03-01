@@ -9,10 +9,12 @@ nav {
  font-family: "Silkscreen", sans-serif;
  font-size: 35px;
  font-weight: 400;
+ margin: 30px 0;
 }
 .navigation {
  display: flex;
  flex-wrap: wrap;
+ margin: 30px 0;
 }
 .navigation a {
  padding: 8px 15px;
@@ -24,4 +26,12 @@ nav {
 }
 .navigation a:hover {
  background-color: rgb(8, 51, 45);
+}
+.contentBox {
+ margin: 0 auto;
+ width: 95%;
+ max-width: 1200px;
+ text-align: center;
+ border-top: 1px dashed white;
+ padding: 25px 0;
 }
