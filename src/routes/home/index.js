@@ -1,10 +1,13 @@
 import {useState, useEffect} from "react"
 import Dropdown from "../../components/dropdown"
+import Input from "../../components/input"
 import "./style.css"
 
 export default function Home() {
+  const [playerName, setPlayerName] = useState("")
   const [categoryOpts, setCategoryOpts] = useState([])
   const [numQuestionsOpts] = useState([
+    {id: 1, name: "1"},
     {id: 10, name: "10"},
     {id: 20, name: "20"},
     {id: 30, name: "30"}
@@ -20,7 +23,7 @@ export default function Home() {
   ])
 
   const getCategories = () => {
-    // https://opentdb.com/api_category.php
+    // TO DO: fetch https://opentdb.com/api_category.php
     setCategoryOpts([
       {id: 9, name: "General Knowledge"},
       {id: 10, name: "Entertainment: Books"},
@@ -28,14 +31,27 @@ export default function Home() {
     ])
   }
 
+  const handleNameChange = (e) => {
+    setPlayerName(e.target.value)
+  }
+
   useEffect(() => {
     getCategories()
   }, [])
 
+  useEffect(() => {
+    console.log('playerName', playerName)
+  }, [playerName])
+
   return (
     <>
       <h2>Set up your game!</h2>
-      <div class="setupForm">
+      <div className="setupForm">
+        <Input
+        label="Player Name:"
+        inputId="playerName"
+        value={playerName}
+        onInputChange={handleNameChange} />
         <Dropdown
         label="Category:"
         dropdownId="category"
