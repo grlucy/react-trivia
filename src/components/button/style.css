@@ -1,0 +1,14 @@
+button {
+ background-color: rgb(16, 206, 219);
+ color: rgb(5, 34, 30);
+ border: none;
+ border-radius: 5px;
+ font-size: 25px;
+ padding: 16px;
+ font-weight: 400;
+ font-family: "Silkscreen", sans-serif;
+ margin: 30px;
+}
+button:disabled {
+ background-color: rgb(8, 51, 45);
+}
