@@ -1,10 +1,10 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import './index.css'
-import Root from './routes/root'
-import Home from './routes/home'
-import Scoreboard from './routes/scoreboard'
-import Play from './routes/play'
+import React from "react"
+import ReactDOM from "react-dom/client"
+import "./index.css"
+import Root from "./routes/root"
+import Home from "./routes/home"
+import Scoreboard from "./routes/scoreboard"
+import Play from "./routes/play"
 
 import {
   createBrowserRouter,
