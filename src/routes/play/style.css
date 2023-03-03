@@ -1,0 +1,10 @@
+.playHeader {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+}
+.questionHeader {
+  color: rgb(152, 219, 76);
+  font-weight: 400;
+  font-size: 25px;
+}

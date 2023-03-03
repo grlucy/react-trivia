@@ -6,7 +6,7 @@ export default function Root() {
   const [name, setName] = useState("")
   const [amount, setAmount] = useState()
   const [difficulty, setDifficulty] = useState()
-  const [questions, setQuestions] = useState([])
+  const [questions, setQuestions] = useState()
 
   const styleNavLink = ({isActive}) => {
     return {

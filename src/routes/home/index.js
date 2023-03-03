@@ -1,4 +1,4 @@
-import {useState, useEffect, useCallback} from "react"
+import {useState, useEffect} from "react"
 import { useOutletContext, useNavigate } from "react-router-dom"
 import Dropdown from "../../components/dropdown"
 import Input from "../../components/input"
@@ -27,15 +27,6 @@ export default function Home() {
   ])
   const [selectedType, setSelectedType] = useState("multiple")
 
-  const getCategories = useCallback(() => {
-    fetch("https://opentdb.com/api_category.php")
-      .then((response) => response.json())
-      .then((data) => {
-        setCategoryOpts(data.trivia_categories)
-        setSelectedCategory(data.trivia_categories[0].id)
-      })
-  }, [])
-
   const handleNameChange = (e) => {
     setName(e.target.value)
   }
@@ -61,7 +52,7 @@ export default function Home() {
   }
 
   const handleSubmit = () => {
-    const url = `https://opentdb.com/api.php?amount=${amount}&category=${selectedCategory}&difficulty=${difficulty}&type=${selectedType}`
+    const url = `https://opentdb.com/api.php?amount=${amount}&category=${selectedCategory}&difficulty=${difficulty}&type=${selectedType}&encode=url3986`
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
@@ -81,9 +72,14 @@ export default function Home() {
     setAmount(numQuestionsOpts[0].id)
     setDifficulty(difficultyOpts[0].id)
     setSelectedType(typeOpts[0].id)
-    getCategories()
+    fetch("https://opentdb.com/api_category.php")
+      .then((response) => response.json())
+      .then((data) => {
+        setCategoryOpts(data.trivia_categories)
+        setSelectedCategory(data.trivia_categories[0].id)
+      })
 
-  }, [setName, setAmount, numQuestionsOpts, setDifficulty, difficultyOpts, setSelectedType, typeOpts, getCategories])
+  }, [setName, setAmount, numQuestionsOpts, setDifficulty, difficultyOpts, setSelectedType, typeOpts])
 
   return (
     <>
