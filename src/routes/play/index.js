@@ -1,5 +1,6 @@
 import { useOutletContext, useNavigate } from "react-router-dom"
 import {useState, useEffect, useCallback} from "react"
+import Answer from "../../components/answer"
 import "./style.css"
 
 export default function Play() {
@@ -8,22 +9,33 @@ export default function Play() {
   const [numCorrect, setNumCorrect] = useState(0)
   const [currentQuestionNum, setCurrentQuestionNum] = useState(1)
   const [currentQuestionText, setCurrentQuestionText] = useState()
-  const [currentQuestionAnswers, setCurrentQuestionAnswers] = useState([])
+  const [currentQuestionOpts, setCurrentQuestionOpts] = useState([])
+  const [currentQuestionAnswer, setCurrentQuestionAnswer] = useState()
+  const [answeredBool, setAnsweredBool] = useState(false)
 
   const updateCurrentQuestion = useCallback((qArr) => {
     const currentQ = qArr[currentQuestionNum - 1]
     setCurrentQuestionText(currentQ.question)
-    // If question is multiple choice, randomize the order of the answers
+    setCurrentQuestionAnswer(currentQ.correct_answer)
+    // If question is multiple choice, randomize the order of the options
     if (currentQ.type === "multiple") {
       const arr = [currentQ.correct_answer, ...currentQ.incorrect_answers]
       const randomized = arr.map(value => ({ value, sort: Math.random() }))
         .sort((a, b) => a.sort - b.sort)
         .map(({ value }) => value)
-      setCurrentQuestionAnswers(randomized)
+      setCurrentQuestionOpts(randomized)
     } else {
-      setCurrentQuestionAnswers(["True", "False"])
+      setCurrentQuestionOpts(["True", "False"])
     }
   }, [currentQuestionNum])
+
+  const handleSelectAnswer = (e) => {
+    const isCorrect = e.target.dataset.correct.toLowerCase() === "true"
+    if (isCorrect) {
+      setNumCorrect(numCorrect + 1)
+    }
+    setAnsweredBool(true)
+  }
 
   useEffect(() => {
     if (!name || !amount || !difficulty) {
@@ -37,12 +49,23 @@ export default function Play() {
     <>
       <div className="playHeader">
         <h2>{name}</h2>
-        <p>Question {currentQuestionNum} / {amount}</p>
+        <p>
+          Question {currentQuestionNum} / {amount}
+          <span className="numCorrect">{numCorrect} Correct</span>
+        </p>
       </div>
       <h1 className="questionHeader">{decodeURIComponent(currentQuestionText)}</h1>
-      {currentQuestionAnswers.map(ans => (
-        <p key={ans}>{decodeURIComponent(ans)}</p>
-      ))}
+      <div className="optionsContainer">
+        {currentQuestionOpts.map(opt => (
+          <Answer
+          key={"answer-" + opt}
+          revealedBool={answeredBool}
+          correctBool={opt === currentQuestionAnswer}
+          text={decodeURIComponent(opt)}
+          onAnswerClick={handleSelectAnswer} />
+        ))}
+      </div>
+      {/* TO DO: Add button that either goes to next question or finishes game */}
     </>
   )
 }

@@ -1,0 +1,27 @@
+.answerContainer {
+ display: flex;
+ justify-content: flex-start;
+ align-items: center;
+ margin: 20px;
+ width: 350px;
+ color: white;
+ font-size: 22px;
+ border: 1px solid rgb(16, 206, 219);
+ border-radius: 5px;
+ padding: 16px;
+ cursor: pointer;
+}
+.answerContainer:hover {
+ background-color: rgb(8, 51, 45);
+}
+.correct, .incorrect {
+ font-size: 35px;
+ font-weight: 700;
+ margin: 0 16px 0 0;
+}
+.correct {
+ color:rgb(152, 219, 76);
+}
+.incorrect {
+ color:rgb(219, 76, 76);
+}
