@@ -1,6 +1,7 @@
 import { useOutletContext, useNavigate } from "react-router-dom"
 import {useState, useEffect, useCallback} from "react"
 import Answer from "../../components/answer"
+import Button from "../../components/button"
 import "./style.css"
 
 export default function Play() {
@@ -37,6 +38,11 @@ export default function Play() {
     setAnsweredBool(true)
   }
 
+  const handleGoNext = () => {
+    setAnsweredBool(false)
+    setCurrentQuestionNum(currentQuestionNum + 1)
+  }
+
   useEffect(() => {
     if (!name || !amount || !difficulty) {
       return navigate("/")
@@ -65,7 +71,16 @@ export default function Play() {
           onAnswerClick={handleSelectAnswer} />
         ))}
       </div>
-      {/* TO DO: Add button that either goes to next question or finishes game */}
+      {currentQuestionNum < amount ? (
+        <Button
+        label="Next"
+        disabled={answeredBool ? false : true}
+        onButtonClick={handleGoNext} />
+      ) : (
+        <p>
+          Last question
+        </p>
+      )}
     </>
   )
 }
