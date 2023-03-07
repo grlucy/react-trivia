@@ -6,7 +6,7 @@ import "./style.css"
 
 export default function Play() {
   const navigate = useNavigate()
-  const {name, amount, difficulty, questions} = useOutletContext()
+  const {name, setName, amount, difficulty, questions, setQuestions} = useOutletContext()
   const [numCorrect, setNumCorrect] = useState(0)
   const [currentQuestionNum, setCurrentQuestionNum] = useState(1)
   const [currentQuestionText, setCurrentQuestionText] = useState()
@@ -43,6 +43,31 @@ export default function Play() {
     setCurrentQuestionNum(currentQuestionNum + 1)
   }
 
+  const handleFinish = () => {
+    const score = numCorrect / amount * 100
+    const newScore = {}
+    newScore[difficulty] = score
+    // get local storage to see if high scores exist; if not, then create the object
+    const stored = localStorage.getItem('highScores')
+    const scoresObj = JSON.parse(stored)
+    if (scoresObj) {
+      if (!scoresObj[name]) {
+        scoresObj[name] = newScore
+      } else if (!scoresObj[name][difficulty] || scoresObj[name][difficulty] < score) {
+        scoresObj[name][difficulty] = score
+      }
+      localStorage.setItem('highScores', JSON.stringify(scoresObj))
+    } else {
+      const newScores = {}
+      newScores[name] = newScore
+      localStorage.setItem('highScores', JSON.stringify(newScores))
+    }
+    
+    setName("")
+    setQuestions()
+    navigate('/scoreboard')
+  }
+
   useEffect(() => {
     if (!name || !amount || !difficulty) {
       return navigate("/")
@@ -77,9 +102,17 @@ export default function Play() {
         disabled={answeredBool ? false : true}
         onButtonClick={handleGoNext} />
       ) : (
-        <p>
-          Last question
-        </p>
+        <>
+          <Button
+          label="Finish"
+          disabled={answeredBool ? false : true}
+          onButtonClick={handleFinish} />
+          {answeredBool ? (
+            <h1>
+              Final Score: {numCorrect / amount * 100}%
+            </h1>
+          ) : ''}
+        </>
       )}
     </>
   )
