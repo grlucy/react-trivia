@@ -6,7 +6,7 @@ import "./style.css"
 
 export default function Play() {
   const navigate = useNavigate()
-  const {name, setName, amount, difficulty, questions, setQuestions} = useOutletContext()
+  const {name, setName, amount, setAmount, difficulty, setDifficulty, questions, setQuestions} = useOutletContext()
   const [numCorrect, setNumCorrect] = useState(0)
   const [currentQuestionNum, setCurrentQuestionNum] = useState(1)
   const [currentQuestionText, setCurrentQuestionText] = useState()
@@ -64,6 +64,8 @@ export default function Play() {
     }
     
     setName("")
+    setAmount()
+    setDifficulty()
     setQuestions()
     navigate('/scoreboard')
   }
