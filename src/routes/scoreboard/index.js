@@ -8,7 +8,9 @@ export default function Scoreboard() {
   const [hardScores, setHardScores] = useState([])
 
   useEffect(() => {
-    const scoresObj = JSON.parse(localStorage.getItem('highScores'))
+    let scoresObj = localStorage.getItem('highScores')
+    if (!scoresObj) return
+    scoresObj = JSON.parse(scoresObj)
     const easy = []
     const med = []
     const hard = []

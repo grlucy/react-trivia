@@ -1,0 +1,19 @@
+table {
+ border-collapse: collapse;
+ margin: 0 auto 70px;
+}
+
+td {
+ padding: 15px 30px;
+}
+
+tbody td {
+ border-bottom: 1px dashed white;
+}
+
+thead {
+ color: rgb(152, 219, 76);
+ font-weight: 400;
+ font-size: 25px;
+ border-bottom: 1px solid rgb(16, 206, 219);
+}
