@@ -12,6 +12,7 @@ export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState()
   const [numQuestionsOpts] = useState([
     {id: 1, name: "1"},
+    {id: 5, name: "5"},
     {id: 10, name: "10"},
     {id: 20, name: "20"},
     {id: 30, name: "30"}
@@ -26,6 +27,7 @@ export default function Home() {
     {id: "boolean", name: "True/False"}
   ])
   const [selectedType, setSelectedType] = useState("multiple")
+  const [errMsg, setErrMsg] = useState("")
 
   const handleNameChange = (e) => {
     setName(e.target.value)
@@ -52,13 +54,28 @@ export default function Home() {
   }
 
   const handleSubmit = () => {
+    setErrMsg("")
     const url = `https://opentdb.com/api.php?amount=${amount}&category=${selectedCategory}&difficulty=${difficulty}&type=${selectedType}&encode=url3986`
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
         if (data.response_code !== 0) {
-          console.error("Error: Request unsuccessful. Adjust parameters.")
-          // TO DO: handle error
+          switch (data.response_code) {
+            case 1:
+              setErrMsg("Oops! There aren't enough questions of this type. Lower the number of questions and try again.")
+              break;
+            case 2:
+              setErrMsg("Error: Invalid parameter")
+              break;
+            case 3: 
+              setErrMsg("Error: Token not found")
+              break;
+            case 4:
+              setErrMsg("Error: Token requires reset.")
+              break;
+            default:
+              console.error("Error: Request unsuccessful.")
+          }
           return
         }
         setQuestions(data.results)
@@ -119,6 +136,7 @@ export default function Home() {
       label="Start!"
       disabled={!name}
       onButtonClick={handleSubmit} />
+      {errMsg ? (<p>{errMsg}</p>) : ''}
     </>
   )
 }
