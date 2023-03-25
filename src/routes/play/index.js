@@ -44,7 +44,7 @@ export default function Play() {
   }
 
   const handleFinish = () => {
-    const score = numCorrect / amount * 100
+    const score = Math.round(numCorrect / amount * 100)
     const newScore = {}
     newScore[difficulty] = score
     // get local storage to see if high scores exist; if not, then create the object
@@ -111,7 +111,7 @@ export default function Play() {
           onButtonClick={handleFinish} />
           {answeredBool ? (
             <h1>
-              Final Score: {numCorrect / amount * 100}%
+              Final Score: {Math.round(numCorrect / amount * 100)}%
             </h1>
           ) : ''}
         </>
